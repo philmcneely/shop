@@ -328,9 +328,7 @@ class ShopCheckout extends PolymerElement {
                     <shop-select>
                       <select id="ccExpYear" name="ccExpYear" required
                           autocomplete="cc-exp-year" aria-label="Expiry year">
-                        <option value="2016" selected>2016</option>
-                        <option value="2017">2017</option>
-                        <option value="2018">2018</option>
+                        <option value="2018" selected>2018</option>
                         <option value="2019">2019</option>
                         <option value="2020">2020</option>
                         <option value="2021">2021</option>
@@ -493,19 +491,53 @@ class ShopCheckout extends PolymerElement {
       // 3) Uncomment `this.$.checkoutForm.submit()`.
 
       this.$.checkoutForm.dispatchEvent(new CustomEvent('iron-form-presubmit', {
-        composed: true}));
+        composed: true
+      }));
 
-      this._submitFormDebouncer = Debouncer.debounce(this._submitFormDebouncer,
-        timeOut.after(1000), () => {
-          this.$.checkoutForm.dispatchEvent(new CustomEvent('iron-form-response', {
-            composed: true, detail: {
-              response: {
-                success: 1,
-                successMessage: 'Demo checkout process complete.'
+      console.log("Country: " + this.$.shipCountry.value)
+      console.log("State: " + this.$.shipState.value)
+
+      if (this.$.shipCountry.value == "CA") {
+        this._submitFormDebouncer = Debouncer.debounce(this._submitFormDebouncer,
+          timeOut.after(1000), () => {
+            this.$.checkoutForm.dispatchEvent(new CustomEvent('iron-form-response', {
+              composed: true, detail: {
+                response: {
+                  success: 1,
+                  successMessage: 'Error: Checkout Failure Hoser'
+                }
               }
-            }}));
-        });
-
+            }));
+          });
+      } else if ((this.$.shipState.value.startsWith("A")) || (this.$.shipState.value.startsWith("C")) ||
+        (this.$.shipState.value.startsWith("I")) || (this.$.shipState.value.startsWith("K")) ||
+        (this.$.shipState.value.startsWith("M")) || (this.$.shipState.value.startsWith("N")) ||
+        (this.$.shipState.value.startsWith("O")) || (this.$.shipState.value.startsWith("T")) ||
+        (this.$.shipState.value.startsWith("V")) || (this.$.shipState.value.startsWith("W"))) {
+        this._submitFormDebouncer = Debouncer.debounce(this._submitFormDebouncer,
+          timeOut.after(1000), () => {
+            this.$.checkoutForm.dispatchEvent(new CustomEvent('iron-form-response', {
+              composed: true, detail: {
+                response: {
+                  success: 1,
+                  successMessage: 'Demo checkout process complete.'
+                }
+              }
+            }));
+          });
+      } else {
+        this._submitFormDebouncer = Debouncer.debounce(this._submitFormDebouncer,
+          timeOut.after(1000), () => {
+            this.$.checkoutForm.dispatchEvent(new CustomEvent('iron-form-response', {
+              composed: true, detail: {
+                response: {
+                  success: 1,
+                  successMessage: 'Error: Checkout Failure'
+                }
+              }
+            }));
+          });
+      }
       // this.$.checkoutForm.submit();
     }
   }
@@ -650,7 +682,34 @@ class ShopCheckout extends PolymerElement {
   }
 
   _getEntryTotal(entry) {
-    return this._formatPrice(entry.quantity * entry.item.price);
+    //default was return this._formatPrice(entry.quantity * entry.item.price);
+    console.log("entry.size: " + entry.size)
+    if (entry.size == 'XL') {
+      entry.item.price = entry.item.price + 2
+    }
+    if (entry.size == 'XS') {
+      entry.item.price = entry.item.price - 1
+    }
+    console.log("entry.quantity: " + entry.quantity);
+    if (entry.quantity == 2) {
+      console.log("entry * 1.01");
+      console.log("price: " + this._formatPrice(entry.quantity * entry.item.price * 1.01));
+      return this._formatPrice(entry.quantity * entry.item.price * 1.01);
+    } else if (entry.quantity == 4) {
+      console.log("entry * 0.98");
+      console.log("price: " + this._formatPrice(entry.quantity * entry.item.price * 0.98));
+      return this._formatPrice(entry.quantity * entry.item.price * 0.98);
+    } else if (entry.quantity == 5) {
+      console.log("entry * 1.10");
+      console.log("price: " + this._formatPrice(entry.quantity * entry.item.price * 1.10));
+      return this._formatPrice(entry.quantity * entry.item.price * 1.10);
+    } else if (entry.quantity == 6) {
+      console.log("entry * 1.10");
+      console.log("price: " + this._formatPrice(entry.quantity * entry.item.price * 1.25));
+      return this._formatPrice(entry.quantity * entry.item.price * 1.25);
+    } else {
+      return this._formatPrice(entry.quantity * entry.item.price);
+    }
   }
 
   _visibleChanged(visible) {

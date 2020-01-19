@@ -75,7 +75,33 @@ class ShopCartData extends PolymerElement {
   _computeTotal() {
     if (this.cart) {
       return this.cart.reduce((total, entry) => {
-        return total + entry.quantity * entry.item.price;
+        //heres where I can mess with totals
+        if (entry.size == 'XL') {
+          entry.item.price = entry.item.price + 2
+        }
+        if (entry.size == 'XS') {
+          entry.item.price = entry.item.price - 1
+        }
+        console.log("entry.quantity: " + entry.quantity);
+        if (entry.quantity == 2) {
+          console.log("entry * 1.01");
+          console.log("price: " + (total + entry.quantity * entry.item.price * 1.01));
+          return total + entry.quantity * entry.item.price * 1.01;
+        } else if (entry.quantity == 4) {
+          console.log("entry * 0.98");
+          console.log("price: " + (total + entry.quantity * entry.item.price * 0.98));
+          return total + entry.quantity * entry.item.price * 0.98;
+        } else if (entry.quantity == 5) {
+          console.log("entry * 1.10");
+          console.log("price: " + (total + entry.quantity * entry.item.price * 1.10));
+          return total + entry.quantity * entry.item.price * 1.10;
+        } else if (entry.quantity == 6) {
+          console.log("entry * 1.10");
+          console.log("price: " + (total + entry.quantity * entry.item.price * 1.25));
+          return total + entry.quantity * entry.item.price * 1.25;
+        } else {
+          return total + entry.quantity * entry.item.price;
+        }
       }, 0);
     }
 

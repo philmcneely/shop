@@ -305,8 +305,7 @@ class ShopApp extends PolymerElement {
     </iron-pages>
 
     <footer>
-      <a href="https://www.polymer-project.org/3.0/toolbox/">Made by Polymer</a>
-      <div class="demo-label">Demo Only</div>
+
     </footer>
 
     <!-- a11y announcer -->
@@ -566,7 +565,19 @@ class ShopApp extends PolymerElement {
   }
 
   _computePluralizedQuantity(quantity) {
-    return quantity + ' ' + (quantity === 1 ? 'item' : 'items');
+    //lets fuck with the number of items when it reaches a certain point
+    //default is return quantity + ' ' + (quantity === 1 ? 'item' : 'items');
+    console.log("original quantity: " + quantity)
+    if (quantity >= 5) {
+      console.log("quantity -1 : " + (quantity - 1))
+      return (quantity - 1) + ' ' + (quantity - 1);
+    } else if (quantity == 1) {
+      console.log("quantity 0 : " + 0)
+      return 0 + ' ' + (0);
+    } else {
+      console.log("dropped into default")
+      return quantity + ' ' + (quantity === 1 ? 'item' : 'items');
+    }
   }
 }
 

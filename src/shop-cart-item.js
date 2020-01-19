@@ -218,6 +218,14 @@ class ShopCartItem extends PolymerElement {
   }
 
   _formatPrice(price) {
+    //XL costs $2 more
+    console.log("size: " + this.entry.size);
+    if (this.entry.size == 'XL') {
+      price = price + 2
+    }
+    if (this.entry.size == 'XS') {
+      price = price - 1
+    }
     return price ? '$' + price.toFixed(2) : '';
   }
 
