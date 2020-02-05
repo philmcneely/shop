@@ -57,12 +57,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <ul>
     <li>Quantity of any single item >= 5 then subtract 1 (not working as expected, ignore)</li>
     <li>Quantity of any single item == 1 then set to 0 (not working as expected, ignore)</li>
-    <li>Size of item == XL add 2 dollars without sayign anything, but show in total</li>
-    <li>Size of item == XS subtract 1 dollar without sayign anything, but show in total</li>
-    <li>Quantity of any single item == 2 then mutiply price by 1.01</li>
-    <li>Quantity of any single item == 4 then mutiply price by 0.98</li>
-    <li>Quantity of any single item == 5 then mutiply price by 1.10</li>
-    <li>Quantity of any single item == 6 then mutiply price by 1.25 (log message bugges, says 1.10)</li>
+    <li>Size of item == XL add 2 dollars without saying anything, but show in total. Additional refreshes or adjustments cause increments of 2$ adding. Price of item will mismatch total</li>
+    <li>Size of item == XS subtract 1 dollar without saying anything, but show in total. Additional refreshes or adjustments cause increments of 2$ adding. Price of item will mismatch total</li>
+    <li>Quantity of any single item == 2 then multiply price by 1.01</li>
+    <li>Quantity of any single item == 4 then multiply price by 0.98</li>
+    <li>Quantity of any single item == 5 then multiply price by 1.10</li>
+    <li>Quantity of any single item == 6 then multiply price by 1.25 (log message bugges, says 1.10)</li>
     <li>No verification on CC number</li>
     <li>No verification on CC dates</li>
     <li>If customer selects ship country of CA, fail to checkout with hoser message</li>
