@@ -169,11 +169,13 @@ class ShopList extends PolymerElement {
       item.name = item.name.slice(1);
       //link = '/detail/' + item.name;
       console.log("item.name: " + item.name)
+      link = item.name;
     } else {
       //link = ['/detail', this.category.name, item.name].join('/');
       console.log("item.name: " + item.name)
+      link = item.name;
     }
-    return item.name ? ['/detail', this.category.name, item.name].join('/') : null;
+    return link ? ['/detail', this.category.name, link].join('/') : null;
   }
 
   _getPluralizedQuantity(quantity) {
