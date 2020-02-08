@@ -167,13 +167,13 @@ class ShopList extends PolymerElement {
     var link = "";
     if ((item.name == "Local+Guides+T-Shirt") || (item.name == "Ladies+Ringspun+Crew+Neck") || (item.name == "Grey+Heather+Fleece+Zip+Hoodie") || (item.name == "Ladies+Yerba+Knit+Quarter+Zip")) {
       item.name = item.name.slice(1);
-      link = '/detail/' + item.name;
-      console.log("link: " + link)
+      //link = '/detail/' + item.name;
+      console.log("item.name: " + item.name)
     } else {
-      link = ['/detail', this.category.name, item.name].join('/');
-      console.log("link: " + link)
+      //link = ['/detail', this.category.name, item.name].join('/');
+      console.log("item.name: " + item.name)
     }
-    return link;
+    return item.name ? ['/detail', this.category.name, item.name].join('/') : null;
   }
 
   _getPluralizedQuantity(quantity) {
